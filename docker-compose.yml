@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo16_db_passwd
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+
+  odoo16:
+    image: odoo:16.0
+    user: root
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "10019:8069"
+      - "20019:8072" # live chat / gevent
+    tty: true
+    command: --
+    environment:
+      - ODOO_RC=/etc/odoo/odoo.conf
+    volumes:
+      - ./addons:/mnt
+      - ./etc:/etc/odoo
+      #- ./system-addons:/usr/lib/python3/dist-packages/odoo/addons
+      #- ./entrypoint.sh:/entrypoint.sh
+      # labels:
+      #   - "traefik.enable=true"
+      #   # Web HTTP/HTTPS Router (Port 8069)
+      #   - "traefik.http.routers.odoo.rule=Host(`odoo.example.com`)"
+      #   - "traefik.http.routers.odoo.entrypoints=websecure"
+      #   - "traefik.http.routers.odoo.tls=true"
+      #   - "traefik.http.routers.odoo.tls.certresolver=letsencrypt"
+      #   - "traefik.http.services.odoo.loadbalancer.server.port=8069"
+      #   # Longpolling / Websocket Router (Port 8072)
+      #   - "traefik.http.routers.odoo-chat.rule=Host(`odoo.example.com`) && (PathPrefix(`/websocket`) || PathPrefix(`/longpolling`))"
+      #   - "traefik.http.routers.odoo-chat.entrypoints=websecure"
+      #   - "traefik.http.routers.odoo-chat.tls=true"
+      #   - "traefik.http.routers.odoo-chat.tls.certresolver=letsencrypt"
+      #   - "traefik.http.services.odoo-chat.loadbalancer.server.port=8072"
+      # networks:
+      #   - default
+      #   - traefik_network
+
+      # networks:
+      #   traefik_network:
+      #     external: true
+

@@ -1,0 +1,74 @@
+# ==============================================================================
+# Odoo & PostgreSQL Sensitive / Runtime Data
+# ==============================================================================
+
+# PostgreSQL database cluster data
+postgresql/
+
+# Odoo filestore (uploaded documents, binary attachments, avatars)
+etc/filestore/*
+!etc/filestore/.gitkeep
+
+# Odoo active user web sessions
+etc/sessions/*
+!etc/sessions/.gitkeep
+
+# Odoo runtime server logs
+etc/odoo-server.log*
+etc/*.log
+*.log
+
+# Database backups, dumps, and export archives
+exports/*
+!exports/.gitkeep
+*.dump
+*.sql
+*.tar.gz
+*.zip
+
+# Automated test screencasts and screenshots
+screenshots/*
+!screenshots/.gitkeep
+
+# Custom / external addons directories
+addons/*
+!addons/.gitkeep
+
+# Cached / auto-downloaded addons
+etc/addons/*
+!etc/addons/.gitkeep
+
+# ==============================================================================
+# Environment & Secrets
+# ==============================================================================
+.env
+.env.*
+!.env.example
+
+# ==============================================================================
+# Python & OS Artifacts
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# IDE & Editor Configuration
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==============================================================================
+# Agent & Session Files / Markdown Dumps
+# ==============================================================================
+.agents/
+session-*.md
+*.session.md
+*.md
+!README.md
+
